@@ -2,6 +2,7 @@ const path = require('path')
 const DhtPromClient = require('dht-prom-client')
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
+const HyperDhtStats = require('hyperdht-stats')
 const promClient = require('prom-client')
 
 // Attempt to get the package version of the main module (commonJS only)
@@ -28,11 +29,18 @@ function hyperInstrument ({
   promClient.collectDefaultMetrics()
   if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
 
-  const swarmStats = new HyperswarmStats(swarm)
-  swarmStats.registerPrometheusMetrics(promClient)
+  if (swarm) {
+    const swarmStats = new HyperswarmStats(swarm)
+    swarmStats.registerPrometheusMetrics(promClient)
+  } else {
+    const dhtStats = new HyperDhtStats(dht)
+    dhtStats.registerPrometheusMetrics(promClient)
+  }
 
-  const hypercoreStats = HypercoreStats.fromCorestore(corestore)
-  hypercoreStats.registerPrometheusMetrics(promClient)
+  if (corestore) {
+    const hypercoreStats = HypercoreStats.fromCorestore(corestore)
+    hypercoreStats.registerPrometheusMetrics(promClient)
+  }
 
   const promRpcClient = new DhtPromClient(
     dht,
