@@ -1,0 +1,28 @@
+{
+  "name": "hyper-instrument",
+  "version": "0.0.0",
+  "description": "Instrument services in the hypercore ecosystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/hyper-instrument.git"
+  },
+  "keywords": [
+    "Instrument",
+    "hypercore",
+    "hyperswarm",
+    "prometheus"
+  ],
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/hyper-instrument/issues"
+  },
+  "homepage": "https://github.com/holepunchto/hyper-instrument#readme",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
+}
