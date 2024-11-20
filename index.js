@@ -8,7 +8,6 @@ const promClient = require('prom-client')
 let PACKAGE_VERSION = null
 try {
   const loc = path.join(require.main.path, 'package.json')
-  console.log(require.main, loc)
   const { version } = require(loc)
   PACKAGE_VERSION = version
 } catch {} // could not extract version
