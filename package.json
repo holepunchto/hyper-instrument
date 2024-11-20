@@ -24,5 +24,12 @@
   "homepage": "https://github.com/holepunchto/hyper-instrument#readme",
   "devDependencies": {
     "standard": "^17.1.2"
+  },
+  "dependencies": {
+    "dht-prom-client": "^1.0.2",
+    "hypercore-stats": "^1.2.0",
+    "hyperdht-stats": "^1.1.0",
+    "hyperswarm-stats": "^1.1.3",
+    "prom-client": "^15.1.3"
   }
 }
