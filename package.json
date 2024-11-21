@@ -6,6 +6,9 @@
   "scripts": {
     "test": "standard"
   },
+  "files": [
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/holepunchto/hyper-instrument.git"
