@@ -17,11 +17,10 @@ function hyperInstrument ({
   swarm,
   corestore,
   dht,
-  prometheusScraperPublicKey,
+  scraperPublicKey,
+  scraperSecret,
   prometheusAlias,
-  prometheusSecret,
-  prometheusServiceName,
-  logger
+  prometheusServiceName
 }) {
   if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
   if (swarm) dht = swarm.dht
@@ -45,13 +44,11 @@ function hyperInstrument ({
   const promRpcClient = new DhtPromClient(
     dht,
     promClient,
-    prometheusScraperPublicKey,
+    scraperPublicKey,
     prometheusAlias,
-    prometheusSecret,
+    scraperSecret,
     prometheusServiceName
   )
-
-  if (logger) promRpcClient.registerLogger(logger)
 
   return promRpcClient
 }
