@@ -96,7 +96,7 @@ function registerModuleVersions (names) {
           this.labels(v).set(1)
         }
       })
-    } catch { } // dep not found or version can't be extracted
+    } catch { } // dependency not found or version can't be extracted
   }
 }
 
