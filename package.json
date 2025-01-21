@@ -4,7 +4,7 @@
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard && brittle test.js"
   },
   "files": [
     "index.js"
@@ -26,6 +26,13 @@
   },
   "homepage": "https://github.com/holepunchto/hyper-instrument#readme",
   "devDependencies": {
+    "b4a": "^1.6.7",
+    "brittle": "^3.8.3",
+    "corestore": "^6.18.4",
+    "hyperbee": "^2.21.2",
+    "hypercore": "^10.38.2",
+    "hyperswarm": "^4.8.4",
+    "random-access-memory": "^6.2.1",
     "standard": "^17.1.2"
   },
   "dependencies": {
