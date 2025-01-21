@@ -20,13 +20,28 @@ function hyperInstrument ({
   scraperPublicKey,
   scraperSecret,
   prometheusAlias,
-  prometheusServiceName
+  prometheusServiceName,
+  moduleVersions = null
 }) {
   if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
   if (swarm) dht = swarm.dht
+  if (moduleVersions === null) {
+    moduleVersions = [
+      'udx-native',
+      'dht-rpc',
+      'hyperdht',
+      'hyperswarm',
+      'hypercore',
+      'corestore',
+      'hyperbee',
+      'autobase'
+    ]
+  }
 
   promClient.collectDefaultMetrics()
   if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
+
+  registerModuleVersions(moduleVersions)
 
   if (swarm) {
     const swarmStats = new HyperswarmStats(swarm)
@@ -65,6 +80,24 @@ function registerPackageVersion (version) {
       ).set(1)
     }
   })
+}
+
+function registerModuleVersions (names) {
+  for (const name of names) {
+    const normName = name.replace('-', '_')
+
+    try {
+      const v = require(`${name}/package.json`).version
+      new promClient.Gauge({ // eslint-disable-line no-new
+        name: `${normName}_version`,
+        help: `${name} version`,
+        labelNames: [`${normName}_version`],
+        collect () {
+          this.labels(v).set(1)
+        }
+      })
+    } catch { } // dep not found or version can't be extracted
+  }
 }
 
 module.exports = hyperInstrument
