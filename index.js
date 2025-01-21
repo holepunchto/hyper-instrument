@@ -25,7 +25,7 @@ function hyperInstrument ({
 }) {
   if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
   if (swarm) dht = swarm.dht
-  if (moduleVersions === null) {
+  if (!moduleVersions) {
     moduleVersions = [
       'udx-native',
       'dht-rpc',
