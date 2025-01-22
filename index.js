@@ -91,7 +91,7 @@ function registerModuleVersions (names) {
       new promClient.Gauge({ // eslint-disable-line no-new
         name: `${normName}_version`,
         help: `${name} version`,
-        labelNames: [`${normName}_version`],
+        labelNames: ['version'],
         collect () {
           this.labels(v).set(1)
         }
