@@ -34,7 +34,8 @@ function hyperInstrument ({
       'hypercore',
       'corestore',
       'hyperbee',
-      'autobase'
+      'autobase',
+      'hyperdb'
     ]
   }
 
