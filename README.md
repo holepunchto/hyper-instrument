@@ -17,10 +17,15 @@ A [Grafana dashboard](https://grafana.com/grafana/dashboards/22313-hypercore-hyp
 npm i hyper-instrument
 ```
 
+## Versions
+
+- V1.x.x works for Hypercore 10.x and Corestore 6.x. It has a different API, so make sure to look at the V1 README.
+- V2.x.x works for Hypercore v11.x.x and Corestore v7.x.x
+
 ## Usage
 
 ```
-const instrument = require('hyper-instrument')
+const HyperInstrument = require('hyper-instrument')
 const Hyperdht = require('hyperdht')
 
 const scraperPublicKey = // Public key of the metrics scraper
@@ -30,7 +35,7 @@ const prometheusServiceName = // the name of the service
 
 const dht = new Hyperdht()
 
-const dhtPromClient = instrument({
+const instrumentation = new HyperInstrument({
   dht,
   scraperPublicKey,
   scraperSecret,
@@ -48,20 +53,18 @@ new dhtPromClient.promClient.Gauge({
 })
 
 // start the scraping
-await dhtPromClient.ready()
+await instrumentation.ready()
 ```
 
 ## API
 
-#### `const dhtPromClient = instrument(params)`
+#### `const instrumentation = new HyperInstrument(params)`
 
 Set up instrumentation.
 
-Returns a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
+Sets up a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
 
-It is possible to add additional metrics by adding them to `dhtPromClient.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
-
-Run `await dhtPromClient.ready()` to start the scraping.
+It is possible to add additional metrics by adding them to `instrumentation.dhtPromClient.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
 
 `params` must include:
 - `scraperPublicKey`: public key of the DHT-Prometheus scraper (hex, z32 or buffer)
@@ -80,3 +83,15 @@ You should pass in `swarm` if your service operates at Hyperswarm level, since H
 Optionally, `params` can also include:
 - `corestore`: a Corestore instance. Passing in a Corestore will set up [hypercore-stats](https://github.com/holepunchto/hypercore-stats) instrumentation
 - `moduleVersions`: a list of package names for which to expose the version number as a metric. Defaults to the core datastructure and networking libraries.
+
+#### `await instrumentation.ready()`
+
+Start the metrics scraping.
+
+#### `await instrumentation.close()`
+
+Stop the metrics scraping.
+
+#### `registerLogger(logger=console)`
+
+Register a logger, so it logs info about the instrumentation (like when it successfully registers with the scraper). `logger` can be a `pino` instance, or `console` (default).

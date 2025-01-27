@@ -4,6 +4,7 @@ const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')
 const promClient = require('prom-client')
+const ReadyResource = require('ready-resource')
 
 // Attempt to get the package version of the main module (commonJS only)
 let PACKAGE_VERSION = null
@@ -13,60 +14,82 @@ try {
   PACKAGE_VERSION = version
 } catch {} // could not extract version
 
-function hyperInstrument ({
-  swarm,
-  corestore,
-  dht,
-  scraperPublicKey,
-  scraperSecret,
-  prometheusAlias,
-  prometheusServiceName,
-  moduleVersions = null
-}) {
-  if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
-  if (swarm) dht = swarm.dht
-  if (!moduleVersions) {
-    moduleVersions = [
-      'udx-native',
-      'dht-rpc',
-      'hyperdht',
-      'hyperswarm',
-      'hypercore',
-      'corestore',
-      'hyperbee',
-      'autobase',
-      'hyperdb'
-    ]
-  }
-
-  promClient.collectDefaultMetrics()
-  if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
-
-  registerModuleVersions(moduleVersions)
-
-  if (swarm) {
-    const swarmStats = new HyperswarmStats(swarm)
-    swarmStats.registerPrometheusMetrics(promClient)
-  } else {
-    const dhtStats = new HyperDhtStats(dht)
-    dhtStats.registerPrometheusMetrics(promClient)
-  }
-
-  if (corestore) {
-    const hypercoreStats = HypercoreStats.fromCorestore(corestore)
-    hypercoreStats.registerPrometheusMetrics(promClient)
-  }
-
-  const promRpcClient = new DhtPromClient(
+class HyperInstrumentation extends ReadyResource {
+  constructor ({
+    swarm,
+    corestore,
     dht,
-    promClient,
     scraperPublicKey,
-    prometheusAlias,
     scraperSecret,
-    prometheusServiceName
-  )
+    prometheusAlias,
+    prometheusServiceName,
+    moduleVersions = null
+  }) {
+    super()
 
-  return promRpcClient
+    if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
+    if (swarm) dht = swarm.dht
+    if (!moduleVersions) {
+      moduleVersions = [
+        'udx-native',
+        'dht-rpc',
+        'hyperdht',
+        'hyperswarm',
+        'hypercore',
+        'corestore',
+        'hyperbee',
+        'autobase',
+        'hyperdb'
+      ]
+    }
+
+    promClient.collectDefaultMetrics()
+    if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
+
+    registerModuleVersions(moduleVersions)
+
+    this.swarmStats = null
+    this.dhtStats = null
+    if (swarm) {
+      this.swarmStats = new HyperswarmStats(swarm)
+      this.swarmStats.registerPrometheusMetrics(promClient)
+    } else {
+      this.dhtStats = new HyperDhtStats(dht)
+      this.dhtStats.registerPrometheusMetrics(promClient)
+    }
+
+    this.hypercoreStats = null
+    if (corestore) {
+      this.hypercoreStats = HypercoreStats.fromCorestore(corestore)
+      this.hypercoreStats.registerPrometheusMetrics(promClient)
+    }
+
+    this.promRpcClient = new DhtPromClient(
+      dht,
+      promClient,
+      scraperPublicKey,
+      prometheusAlias,
+      scraperSecret,
+      prometheusServiceName
+    )
+  }
+
+  async _open () {
+    await this.promRpcClient.ready()
+  }
+
+  async _close () {
+    await this.promRpcClient.close()
+  }
+
+  registerLogger (logger = console) {
+    this.dhtPromClient.registerLogger(logger)
+    if (this.hypercoreStats) {
+      this.hypercoreStats.on('internal-error', (e) => {
+        console.warn(`Hypercore stats internal error: ${e.stack}`)
+      })
+    }
+  }
 }
 
 function registerPackageVersion (version) {
@@ -101,4 +124,4 @@ function registerModuleVersions (names) {
   }
 }
 
-module.exports = hyperInstrument
+module.exports = HyperInstrumentation
