@@ -1,11 +1,11 @@
 const test = require('brittle')
-const HypercoreInstrument = require('.')
 const Hyperswarm = require('hyperswarm')
 const setupTestnet = require('hyperdht/testnet')
 const tmpDir = require('test-tmp')
 const Corestore = require('corestore')
 const b4a = require('b4a')
 const promClient = require('prom-client')
+const HypercoreInstrument = require('.')
 
 const DEBUG = false
 
