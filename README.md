@@ -19,8 +19,8 @@ npm i hyper-instrument
 
 ## Versions
 
-- V1.x.x works for Hypercore 10.x and Corestore 6.x. It has a different API, so make sure to look at the V1 README.
-- V2.x.x works for Hypercore v11.x.x and Corestore v7.x.x
+- V1 works for Hypercore V10 and Corestore V6. It has a different API, so make sure to look at the V1 README.
+- V2 works for Hypercore v11 and Corestore v7
 
 ## Usage
 
@@ -52,6 +52,7 @@ new instrumentation.dhtPromClient.promClient.Gauge({
   }
 })
 
+// If you want to see instrumentation-related logs:
 instrumentation.registerLogger()
 
 // start the scraping
@@ -62,9 +63,7 @@ await instrumentation.ready()
 
 #### `const instrumentation = new HyperInstrument(params)`
 
-Set up instrumentation.
-
-Sets up a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
+Set up instrumentation by registering the default metrics and creating a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
 
 It is possible to add additional metrics by adding them to `instrumentation.dhtPromClient.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
 
@@ -100,4 +99,4 @@ Stop the metrics scraping.
 
 #### `registerLogger(logger=console)`
 
-Register a logger, so it logs info about the instrumentation (like when it successfully registers with the scraper). `logger` can be a `pino` instance, or `console` (default).
+Register a logger, so it logs info about the instrumentation (for example when it successfully registers with the scraper). `logger` can be a `pino` instance, or `console` (default).
