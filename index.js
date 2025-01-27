@@ -64,7 +64,7 @@ class HyperInstrumentation extends ReadyResource {
       this.hypercoreStats.registerPrometheusMetrics(promClient)
     }
 
-    this.promRpcClient = new DhtPromClient(
+    this.dhtPromClient = new DhtPromClient(
       dht,
       promClient,
       scraperPublicKey,
@@ -75,11 +75,11 @@ class HyperInstrumentation extends ReadyResource {
   }
 
   async _open () {
-    await this.promRpcClient.ready()
+    await this.dhtPromClient.ready()
   }
 
   async _close () {
-    await this.promRpcClient.close()
+    await this.dhtPromClient.close()
   }
 
   registerLogger (logger = console) {

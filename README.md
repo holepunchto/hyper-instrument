@@ -44,13 +44,15 @@ const instrumentation = new HyperInstrument({
 })
 
 // You can add additional metrics
-new dhtPromClient.promClient.Gauge({
+new instrumentation.dhtPromClient.promClient.Gauge({
   name: 'my_custom_metric',
   help: 'my custom metric help',
   collect () {
     return 1 // dummy metric
   }
 })
+
+instrumentation.registerLogger()
 
 // start the scraping
 await instrumentation.ready()
@@ -83,6 +85,10 @@ You should pass in `swarm` if your service operates at Hyperswarm level, since H
 Optionally, `params` can also include:
 - `corestore`: a Corestore instance. Passing in a Corestore will set up [hypercore-stats](https://github.com/holepunchto/hypercore-stats) instrumentation
 - `moduleVersions`: a list of package names for which to expose the version number as a metric. Defaults to the core datastructure and networking libraries.
+
+#### `instrumentation.dhtPromClient`
+
+The [DHT Prom Client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
 
 #### `await instrumentation.ready()`
 
