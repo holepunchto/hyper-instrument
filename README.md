@@ -44,7 +44,7 @@ const instrumentation = new HyperInstrument({
 })
 
 // You can add additional metrics
-new instrumentation.dhtPromClient.promClient.Gauge({
+new instrumentation.promClient.Gauge({
   name: 'my_custom_metric',
   help: 'my custom metric help',
   collect () {
@@ -65,7 +65,7 @@ await instrumentation.ready()
 
 Set up instrumentation by registering the default metrics and creating a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
 
-It is possible to add additional metrics by adding them to `instrumentation.dhtPromClient.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
+It is possible to add additional metrics by adding them to `instrumentation.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
 
 `params` must include:
 - `scraperPublicKey`: public key of the DHT-Prometheus scraper (hex, z32 or buffer)
@@ -84,6 +84,10 @@ You should pass in `swarm` if your service operates at Hyperswarm level, since H
 Optionally, `params` can also include:
 - `corestore`: a Corestore instance. Passing in a Corestore will set up [hypercore-stats](https://github.com/holepunchto/hypercore-stats) instrumentation
 - `moduleVersions`: a list of package names for which to expose the version number as a metric. Defaults to the core datastructure and networking libraries.
+
+#### `instrumentation.promClient`
+
+The [Prom Client](https://github.com/siimon/prom-client) instance.
 
 #### `instrumentation.dhtPromClient`
 

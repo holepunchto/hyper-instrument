@@ -74,6 +74,10 @@ class HyperInstrumentation extends ReadyResource {
     )
   }
 
+  get promClient () {
+    return this.dhtPromClient.promClient
+  }
+
   async _open () {
     await this.dhtPromClient.ready()
   }
