@@ -1,11 +1,11 @@
 const test = require('brittle')
-const instrument = require('.')
 const Hyperswarm = require('hyperswarm')
 const setupTestnet = require('hyperdht/testnet')
-const RAM = require('random-access-memory')
+const tmpDir = require('test-tmp')
 const Corestore = require('corestore')
 const b4a = require('b4a')
 const promClient = require('prom-client')
+const HypercoreInstrument = require('.')
 
 const DEBUG = false
 
@@ -13,18 +13,17 @@ test('basic happy path', async t => {
   const testnet = await setupTestnet()
   const { bootstrap } = testnet
   const swarm = new Hyperswarm({ bootstrap })
-  const corestore = new Corestore(RAM)
+  const corestore = new Corestore(await tmpDir(t))
 
   const key = b4a.alloc(32)
 
-  const client = instrument({
+  const client = new HypercoreInstrument({
     swarm,
     corestore,
     scraperPublicKey: key,
     prometheusAlias: 'alias',
     scraperSecret: key,
     prometheusServiceName: 'name'
-
   })
 
   const txt = await promClient.register.metrics()
@@ -40,5 +39,6 @@ test('basic happy path', async t => {
   if (DEBUG) console.log(txt)
 
   await client.close()
+  await corestore.close()
   await testnet.destroy()
 })
