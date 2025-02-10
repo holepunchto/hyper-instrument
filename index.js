@@ -22,7 +22,7 @@ function hyperInstrument ({
   prometheusAlias,
   prometheusServiceName,
   moduleVersions = null,
-  scraperDht = null, // If the metrics should be scraped over a different DHT than 'dht'
+  scraperDht = null // If the metrics should be scraped over a different DHT object than 'dht'
 }) {
   if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
   if (swarm) dht = swarm.dht
