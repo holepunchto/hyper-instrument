@@ -21,7 +21,8 @@ function hyperInstrument ({
   scraperSecret,
   prometheusAlias,
   prometheusServiceName,
-  moduleVersions = null
+  moduleVersions = null,
+  scraperDht = null // If the metrics should be scraped over a different DHT object than 'dht'
 }) {
   if (swarm && dht) throw new Error('Exactly 1 of dht or swarm should be specified')
   if (swarm) dht = swarm.dht
@@ -38,6 +39,7 @@ function hyperInstrument ({
       'hyperdb'
     ]
   }
+  scraperDht = scraperDht || dht
 
   promClient.collectDefaultMetrics()
   if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
@@ -58,7 +60,7 @@ function hyperInstrument ({
   }
 
   const promRpcClient = new DhtPromClient(
-    dht,
+    scraperDht,
     promClient,
     scraperPublicKey,
     prometheusAlias,
