@@ -7,7 +7,9 @@
     "test": "standard && brittle test.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "imports.json",
+    "bare-v8"
   ],
   "repository": {
     "type": "git",
