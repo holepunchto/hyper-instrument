@@ -6,5 +6,5 @@
   "os": "bare-os",
   "process": "bare-process",
   "v8": "bare-v8",
-  "zlib": "bare-node-zlib"
+  "zlib": "bare-zlib"
 }
