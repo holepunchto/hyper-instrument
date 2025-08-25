@@ -4,7 +4,7 @@
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
   "scripts": {
-    "test": "standard && brittle-bare test.js"
+    "test": "standard && brittle test.js"
   },
   "files": [
     "index.js",
