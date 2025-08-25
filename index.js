@@ -1,5 +1,5 @@
 const path = require('path')
-const DhtPromClient = require('dht-prom-client')
+const DhtPromClient = require('dht-prom-client', { with: { imports: './imports.json' } })
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')

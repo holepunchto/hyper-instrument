@@ -1,10 +1,13 @@
+const { isBare, isPear } = require('which-runtime')
+if (isBare || isPear) require('bare-process/global')
+
 const test = require('brittle')
 const Hyperswarm = require('hyperswarm')
 const setupTestnet = require('hyperdht/testnet')
 const tmpDir = require('test-tmp')
 const Corestore = require('corestore')
 const b4a = require('b4a')
-const promClient = require('prom-client')
+const promClient = require('prom-client', { with: { imports: './imports.json' } })
 const HypercoreInstrument = require('.')
 
 const DEBUG = false
