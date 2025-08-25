@@ -9,7 +9,7 @@
   "files": [
     "index.js",
     "imports.json",
-    "bare-v8"
+    "bare-v8/"
   ],
   "repository": {
     "type": "git",
