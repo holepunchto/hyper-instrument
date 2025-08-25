@@ -1,9 +1,12 @@
+const { isBare } = require('which-runtime')
+if (isBare) require('bare-process/global')
+
 const path = require('path')
 const DhtPromClient = require('dht-prom-client', { with: { imports: './imports.json' } })
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')
-const promClient = require('prom-client')
+const promClient = require('prom-client', { with: { imports: './imports.json' } })
 const ReadyResource = require('ready-resource')
 
 // Attempt to get the package version of the main module (commonJS only)
