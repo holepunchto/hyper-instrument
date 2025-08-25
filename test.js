@@ -5,6 +5,8 @@ const tmpDir = require('test-tmp')
 const Corestore = require('corestore')
 const b4a = require('b4a')
 const HypercoreInstrument = require('.')
+
+// the following lines use bare-module to remap Node.js imports to their bare equivalents
 const promClient = require('prom-client', { with: { imports: './imports.json' } })
 
 const DEBUG = false
