@@ -1,10 +1,14 @@
+const { isBare } = require('which-runtime')
+if (isBare) require('bare-process/global')
+
 const path = require('path')
-const DhtPromClient = require('dht-prom-client')
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')
-const promClient = require('prom-client')
 const ReadyResource = require('ready-resource')
+const DhtPromClient = require('dht-prom-client')
+// the following line uses bare-module to remap Node.js imports to their bare equivalents
+const promClient = require('prom-client', { with: { imports: './imports.json' } })
 
 // Attempt to get the package version of the main module (commonJS only)
 let PACKAGE_VERSION = null

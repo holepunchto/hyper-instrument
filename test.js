@@ -4,8 +4,10 @@ const setupTestnet = require('hyperdht/testnet')
 const tmpDir = require('test-tmp')
 const Corestore = require('corestore')
 const b4a = require('b4a')
-const promClient = require('prom-client')
+
+// the order of these imports is important due to the import mapping in the main module (index.js)
 const HypercoreInstrument = require('.')
+const promClient = require('prom-client')
 
 const DEBUG = false
 
