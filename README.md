@@ -2,6 +2,8 @@
 
 Instrument services in the Hypercore ecosystem.
 
+Supports both the Node.js and [bare](https://github.com/holepunchto/bare) runtimes.
+
 Supports the metrics of
 - [hypercore-stats](https://github.com/holepunchto/hypercore-stats)
 - [hyperswarm-stats](https://github.com/holepunchto/hyperswarm-stats)
