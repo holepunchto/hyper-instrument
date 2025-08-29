@@ -1,4 +1,4 @@
-(async () => {
-  if (global.Pear) await global.Pear.versions().then(console.log)
-  require('prom-client', { with: { imports: './imports.json' } })
-})()
+const { isBare } = require('which-runtime')
+if (isBare) require('bare-process/global')
+
+require('prom-client', { with: { imports: './imports.json' } })
