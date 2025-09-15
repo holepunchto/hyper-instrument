@@ -3,6 +3,7 @@
   "version": "2.2.1",
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
+  "pear": {},
   "scripts": {
     "test": "standard && brittle test.js",
     "test:bare": "bare test.js"
