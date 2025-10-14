@@ -1,6 +1,6 @@
 {
   "name": "hyper-instrument",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
   "scripts": {
