@@ -63,6 +63,11 @@
     "path": {
       "bare": "bare-path",
       "default": "path"
+    },
+    "process": {
+      "bare": "bare-process",
+      "default": "process"
     }
+
   }
 }

@@ -1,6 +1,7 @@
 const { isBare } = require('which-runtime')
 if (isBare) require('bare-process/global')
 
+const process = require('process')
 const path = require('path')
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
@@ -51,6 +52,7 @@ class HyperInstrumentation extends ReadyResource {
     if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
 
     registerModuleVersions(moduleVersions)
+    registerProcessId()
 
     this.swarmStats = null
     this.dhtStats = null
@@ -130,6 +132,16 @@ function registerModuleVersions (names) {
       })
     } catch { } // dependency not found or version can't be extracted
   }
+}
+
+function registerProcessId () {
+  return new promClient.Gauge({
+    name: 'process_pid',
+    help: 'Process id on the operating system',
+    collect () {
+      this.set(process.pid)
+    }
+  })
 }
 
 module.exports = HyperInstrumentation
