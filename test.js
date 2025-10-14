@@ -36,6 +36,7 @@ test('basic happy path', async t => {
   t.ok(txt.includes('hyperswarm_version'), 'hyperswarm_version')
   t.ok(txt.includes('corestore_version'), 'corestore_version')
   t.ok(txt.includes('hyperbee_version'), 'hyperbee_version')
+  t.ok(txt.includes('process_pid', 'process pid included'))
   t.absent(txt.includes('autobase_version'), 'autobase not included if not available')
 
   if (DEBUG) console.log(txt)
