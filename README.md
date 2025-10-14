@@ -5,6 +5,7 @@ Instrument services in the Hypercore ecosystem.
 Supports both the Node.js and [bare](https://github.com/holepunchto/bare) runtimes.
 
 Supports the metrics of
+
 - [hypercore-stats](https://github.com/holepunchto/hypercore-stats)
 - [hyperswarm-stats](https://github.com/holepunchto/hyperswarm-stats)
 - [hyperdht-stats](https://github.com/holepunchto/hyperdht-stats)
@@ -70,12 +71,14 @@ Set up instrumentation by registering the default metrics and creating a [DHT-Pr
 It is possible to add additional metrics by adding them to `instrumentation.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
 
 `params` must include:
+
 - `scraperPublicKey`: public key of the DHT-Prometheus scraper (hex, z32 or buffer)
 - `scraperSecret`: secret of the DHT-Prometheus scraper (hex, z32 or buffer)
 - `prometheusAlias`: string uniquely identifying this instance to the scraper
 - `prometheusServiceName`: string containing the name of the service
 
 `params` must also include exactly one of
+
 - `dht`: a HyperDHT instance
 - `swarm`: a Hyperswarm instance
 
@@ -84,6 +87,7 @@ The passed-in swarm/dht will be instrumented. It will also be used to connect wi
 You should pass in `swarm` if your service operates at Hyperswarm level, since Hyperswarm extends HyperDHT (the Hyperswarm metrics include all HyperDHT metrics).
 
 Optionally, `params` can also include:
+
 - `corestore`: a Corestore instance. Passing in a Corestore will set up [hypercore-stats](https://github.com/holepunchto/hypercore-stats) instrumentation
 - `moduleVersions`: a list of package names for which to expose the version number as a metric. Defaults to the core datastructure and networking libraries.
 

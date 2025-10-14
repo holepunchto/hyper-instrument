@@ -20,7 +20,7 @@ try {
 } catch {} // could not extract version
 
 class HyperInstrumentation extends ReadyResource {
-  constructor ({
+  constructor({
     swarm,
     corestore,
     dht,
@@ -80,19 +80,19 @@ class HyperInstrumentation extends ReadyResource {
     )
   }
 
-  get promClient () {
+  get promClient() {
     return this.dhtPromClient.promClient
   }
 
-  async _open () {
+  async _open() {
     await this.dhtPromClient.ready()
   }
 
-  async _close () {
+  async _close() {
     await this.dhtPromClient.close()
   }
 
-  registerLogger (logger = console) {
+  registerLogger(logger = console) {
     this.dhtPromClient.registerLogger(logger)
     if (this.hypercoreStats) {
       this.hypercoreStats.on('internal-error', (e) => {
@@ -102,43 +102,42 @@ class HyperInstrumentation extends ReadyResource {
   }
 }
 
-function registerPackageVersion (version) {
+function registerPackageVersion(version) {
   // Gauges expect a number, so we set the version as label instead
   return new promClient.Gauge({
     name: 'package_version',
     help: 'Package version in config.json',
     labelNames: ['version'],
-    collect () {
-      this.labels(
-        version
-      ).set(1)
+    collect() {
+      this.labels(version).set(1)
     }
   })
 }
 
-function registerModuleVersions (names) {
+function registerModuleVersions(names) {
   for (const name of names) {
     const normName = name.replace('-', '_')
 
     try {
       const v = require(`${name}/package.json`).version
-      new promClient.Gauge({ // eslint-disable-line no-new
+      new promClient.Gauge({
+        // eslint-disable-line no-new
         name: `${normName}_version`,
         help: `${name} version`,
         labelNames: [`${normName}_version`],
-        collect () {
+        collect() {
           this.labels(v).set(1)
         }
       })
-    } catch { } // dependency not found or version can't be extracted
+    } catch {} // dependency not found or version can't be extracted
   }
 }
 
-function registerProcessId () {
+function registerProcessId() {
   return new promClient.Gauge({
     name: 'process_pid',
     help: 'Process id on the operating system',
-    collect () {
+    collect() {
       this.set(process.pid)
     }
   })

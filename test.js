@@ -11,7 +11,7 @@ const promClient = require('prom-client')
 
 const DEBUG = false
 
-test('basic happy path', async t => {
+test('basic happy path', async (t) => {
   const testnet = await setupTestnet()
   const { bootstrap } = testnet
   const swarm = new Hyperswarm({ bootstrap })
