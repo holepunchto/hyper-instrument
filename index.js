@@ -11,14 +11,6 @@ const DhtPromClient = require('dht-prom-client')
 // the following line uses bare-module to remap Node.js imports to their bare equivalents
 const promClient = require('prom-client', { with: { imports: './imports.json' } })
 
-// Attempt to get the package version of the main module (commonJS only)
-let PACKAGE_VERSION = null
-try {
-  const loc = path.join(require.main.path, 'package.json')
-  const { version } = require(loc)
-  PACKAGE_VERSION = version
-} catch {} // could not extract version
-
 class HyperInstrumentation extends ReadyResource {
   constructor({
     swarm,
@@ -28,7 +20,8 @@ class HyperInstrumentation extends ReadyResource {
     scraperSecret,
     prometheusAlias,
     prometheusServiceName,
-    moduleVersions = null
+    moduleVersions = null,
+    version = null
   }) {
     super()
 
@@ -49,7 +42,7 @@ class HyperInstrumentation extends ReadyResource {
     }
 
     promClient.collectDefaultMetrics()
-    if (PACKAGE_VERSION) registerPackageVersion(PACKAGE_VERSION)
+    if (version) registerPackageVersion(version)
 
     registerModuleVersions(moduleVersions)
     registerProcessId()

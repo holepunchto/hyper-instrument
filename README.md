@@ -30,6 +30,7 @@ npm i hyper-instrument
 ```
 const HyperInstrument = require('hyper-instrument')
 const Hyperdht = require('hyperdht')
+const { version } = require('./package.json') // version of your own module
 
 const scraperPublicKey = // Public key of the metrics scraper
 const scraperSecret = // Secret of the metrics scraper
@@ -43,7 +44,8 @@ const instrumentation = new HyperInstrument({
   scraperPublicKey,
   scraperSecret,
   prometheusAlias,
-  prometheusServiceName
+  prometheusServiceName,
+  version
 })
 
 // You can add additional metrics
