@@ -14,8 +14,9 @@ const promClient = require('prom-client', { with: { imports: './imports.json' } 
 // Attempt to get the package version of the main module (commonJS only)
 let PACKAGE_VERSION = null
 try {
-  let loc = path.join(require.main.path, 'package.json')
-  if (isPear) loc = global.Pear.app.key ? `${global.Pear.app.applink}/${loc}` : `pear://dev/${loc}`
+  const loc = isPear
+    ? `pear://${global.Pear.app.key || 'dev'}/${loc}`
+    : path.join(require.main.path, 'package.json')
   const { version } = require(loc)
   PACKAGE_VERSION = version
 } catch {} // could not extract version
