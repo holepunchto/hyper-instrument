@@ -1,4 +1,4 @@
-const { isBare } = require('which-runtime')
+const { isBare, isPear } = require('which-runtime')
 if (isBare) require('bare-process/global')
 
 const process = require('process')
@@ -14,7 +14,8 @@ const promClient = require('prom-client', { with: { imports: './imports.json' } 
 // Attempt to get the package version of the main module (commonJS only)
 let PACKAGE_VERSION = null
 try {
-  const loc = path.join(require.main.path, 'package.json')
+  let loc = path.join(require.main.path, 'package.json')
+  if (isPear) loc = `${global.Pear.app.applink}/${loc}`
   const { version } = require(loc)
   PACKAGE_VERSION = version
 } catch {} // could not extract version
