@@ -25,7 +25,8 @@ test('basic happy path', async (t) => {
     scraperPublicKey: key,
     prometheusAlias: 'alias',
     scraperSecret: key,
-    prometheusServiceName: 'name'
+    prometheusServiceName: 'name',
+    version: '1.0.0'
   })
 
   const txt = await promClient.register.metrics()
@@ -37,6 +38,7 @@ test('basic happy path', async (t) => {
   t.ok(txt.includes('corestore_version'), 'corestore_version')
   t.ok(txt.includes('hyperbee_version'), 'hyperbee_version')
   t.ok(txt.includes('process_pid', 'process pid included'))
+  t.ok(txt.includes('package_version{version="1.0.0"}', 'package version included'))
   t.absent(txt.includes('autobase_version'), 'autobase not included if not available')
 
   if (DEBUG) console.log(txt)
