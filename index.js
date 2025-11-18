@@ -15,7 +15,7 @@ const promClient = require('prom-client', { with: { imports: './imports.json' } 
 let PACKAGE_VERSION = null
 try {
   const loc = isPear
-    ? `pear://${global.Pear.app.key || 'dev'}/${loc}`
+    ? `pear://${global.Pear.app.key || 'dev'}/package.json`
     : path.join(require.main.path, 'package.json')
   const { version } = require(loc)
   PACKAGE_VERSION = version
