@@ -116,7 +116,7 @@ function registerPackageVersion(version) {
 
 function registerModuleVersions(names) {
   for (const name of names) {
-    const normName = name.replace('@', '').replace('/', '_').replace('-', '_')
+    const normName = name.replace('@', '').replace(/[@/-]/g, '_')
 
     try {
       const v = require(`${name}/package.json`).version
