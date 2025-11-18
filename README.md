@@ -30,12 +30,12 @@ npm i hyper-instrument
 ```
 const HyperInstrument = require('hyper-instrument')
 const Hyperdht = require('hyperdht')
+const { version } = require('./package.json') // version of your own module
 
 const scraperPublicKey = // Public key of the metrics scraper
 const scraperSecret = // Secret of the metrics scraper
 const prometheusAlias = // unique alias identifying this instance
 const prometheusServiceName = // the name of the service
-const { version } = require('./package.json') // version of your own module
 
 const dht = new Hyperdht()
 
