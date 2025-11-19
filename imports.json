@@ -36,7 +36,7 @@
     "default": "util"
   },
   "v8": {
-    "v8": "bare-v8",
+    "bare": "bare-v8",
     "default": "v8"
   },
   "zlib": {
