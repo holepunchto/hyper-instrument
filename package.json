@@ -1,5 +1,5 @@
 {
-  "name": "hyper-instrument",
+  "name": "hyper-instrument-pear",
   "version": "2.3.2",
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
