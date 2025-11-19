@@ -1,13 +1,46 @@
 {
-  "crypto": "bare-crypto",
-  "events": "bare-events",
-  "fs": "bare-fs",
-  "http": "bare-http1",
-  "https": "bare-https",
-  "os": "bare-os",
-  "process": "bare-process",
-  "url": "bare-url",
-  "util": "bare-utils",
-  "v8": "bare-v8",
-  "zlib": "bare-zlib"
+  "crypto": {
+    "bare": "bare-crypto",
+    "default": "crypto"
+  },
+  "events": {
+    "bare": "bare-events",
+    "default": "events"
+  },
+  "fs": {
+    "bare": "bare-fs",
+    "default": "fs'"
+  },
+  "http": {
+    "bare": "bare-http1",
+    "default": "http"
+  },
+  "https": {
+    "bare": "bare-https",
+    "default": "https"
+  },
+  "os": {
+    "bare": "bare-os",
+    "default": "os"
+  },
+  "process": {
+    "bare": "bare-process",
+    "default": "process"
+  },
+  "url": {
+    "bare": "bare-url",
+    "default": "url"
+  },
+  "util": {
+    "bare": "bare-utils",
+    "default": "util"
+  },
+  "v8": {
+    "v8": "bare-v8",
+    "default": "v8"
+  },
+  "zlib": {
+    "bare": "bare-zlib",
+    "default": "zlib"
+  }
 }
