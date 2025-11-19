@@ -7,8 +7,7 @@ const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')
 const ReadyResource = require('ready-resource')
 const DhtPromClient = require('dht-prom-client')
-// the following line uses bare-module to remap Node.js imports to their bare equivalents
-const promClient = require('prom-client', { with: { imports: './imports.json' } })
+const promClient = require('bare-prom-client')
 
 class HyperInstrumentation extends ReadyResource {
   constructor({
