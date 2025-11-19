@@ -4,6 +4,7 @@
   "description": "Instrument services in the hypercore ecosystem",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npx patch-package",
     "test": "prettier --check . && brittle test.js",
     "test:bare": "bare test.js",
     "format": "prettier --write ."
