@@ -7,7 +7,7 @@ const b4a = require('b4a')
 
 // the order of these imports is important due to the import mapping in the main module (index.js)
 const HypercoreInstrument = require('.')
-const promClient = require('prom-client')
+const promClient = require('bare-prom-client')
 
 const DEBUG = false
 
