@@ -44,6 +44,7 @@ class HyperInstrumentation extends ReadyResource {
 
     registerModuleVersions(moduleVersions)
     registerProcessId()
+    maybeRegisterPm2Name()
 
     this.swarmStats = null
     this.dhtStats = null
@@ -130,6 +131,19 @@ function registerProcessId() {
     help: 'Process id on the operating system',
     collect() {
       this.set(process.pid)
+    }
+  })
+}
+
+function maybeRegisterPm2Name() {
+  if (!process.env.name) return
+
+  new promClient.Gauge({
+    name: 'pm2_name',
+    help: 'name of the pm2 process',
+    labelNames: ['pm2_name'],
+    collect() {
+      this.labels(process.env.name).set(1)
     }
   })
 }
