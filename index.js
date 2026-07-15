@@ -60,6 +60,9 @@ class HyperInstrumentation extends ReadyResource {
     if (corestore) {
       this.hypercoreStats = HypercoreStats.fromCorestore(corestore)
       this.hypercoreStats.registerPrometheusMetrics(promClient)
+
+      // TODO: these corestore-level stats should be defined in hypecore-stats
+      registerExtraCorestoreStats(corestore)
     }
 
     this.dhtPromClient = new DhtPromClient(
@@ -144,6 +147,47 @@ function maybeRegisterPm2Name() {
     labelNames: ['pm2_name'],
     collect() {
       this.labels(process.env.name).set(1)
+    }
+  })
+}
+
+function registerExtraCorestoreStats(corestore) {
+  if (!corestore.storage.stats?.treeCache) return
+
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_hits',
+    help: 'cache hits in the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.stats.treeCache.hits)
+    }
+  })
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_misses',
+    help: 'cache misses in the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.stats.treeCache.misses)
+    }
+  })
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_parallel',
+    help: 'parallel cache hits in the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.stats.treeCache.parallel)
+    }
+  })
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_skips',
+    help: 'cache skips in the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.stats.treeCache.skips)
+    }
+  })
+
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_max_size',
+    help: 'max size of the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.treeCache.maxSize)
     }
   })
 }

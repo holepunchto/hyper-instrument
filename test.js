@@ -39,6 +39,12 @@ test('basic happy path', async (t) => {
   t.ok(txt.includes('package_version{version="1.0.0"}', 'package version included'))
   t.absent(txt.includes('autobase_version'), 'autobase not included if not available')
 
+  t.ok(txt.includes('corestore_tree_cache_hits 0'), 'hypercore version metric')
+  t.ok(txt.includes('corestore_tree_cache_misses 0'), 'corestore_tree_cache_misses')
+  t.ok(txt.includes('corestore_tree_cache_parallel 0'), 'corestore_tree_cache_parallel')
+  t.ok(txt.includes('corestore_tree_cache_skips 0'), 'corestore_tree_cache_skips')
+  t.ok(txt.includes('corestore_tree_cache_max_size'), 'corestore_tree_cache_max_size')
+
   if (DEBUG) console.log(txt)
 
   await client.close()
