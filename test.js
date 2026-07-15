@@ -44,6 +44,7 @@ test('basic happy path', async (t) => {
   t.ok(txt.includes('corestore_tree_cache_parallel 0'), 'corestore_tree_cache_parallel')
   t.ok(txt.includes('corestore_tree_cache_skips 0'), 'corestore_tree_cache_skips')
   t.ok(txt.includes('corestore_tree_cache_max_size'), 'corestore_tree_cache_max_size')
+  t.ok(txt.includes('corestore_tree_cache_entries'), 'corestore_tree_cache_entries')
 
   if (DEBUG) console.log(txt)
 
