@@ -190,6 +190,13 @@ function registerExtraCorestoreStats(corestore) {
       this.set(corestore.storage.treeCache.maxSize)
     }
   })
+  new promClient.Gauge({
+    name: 'corestore_tree_cache_entries',
+    help: 'number of current entries in the the hypercore storage tree-node cache',
+    collect() {
+      this.set(corestore.storage.treeCache.size || 0) // only defined in xache 1.3.0 and higher
+    }
+  })
 }
 
 module.exports = HyperInstrumentation
