@@ -57,8 +57,7 @@
     "hypercore-stats": "^2.0.0",
     "hyperdht-stats": "^1.1.0",
     "hyperswarm-stats": "^1.1.3",
-    "ready-resource": "^1.1.1",
-    "which-runtime": "^1.3.0"
+    "ready-resource": "^1.1.1"
   },
   "imports": {
     "path": {

@@ -1,6 +1,3 @@
-const { isBare } = require('which-runtime')
-if (isBare) require('bare-process/global')
-
 const process = require('process')
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
