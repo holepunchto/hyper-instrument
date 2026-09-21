@@ -70,7 +70,7 @@ await instrumentation.ready()
 
 Set up instrumentation by registering the default metrics and creating a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
 
-It is possible to add additional metrics by adding them to `instrumentation.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
+It is possible to add additional metrics by adding them to `instrumentation.promClient`, which is a [Prom Client](https://github.com/holepunchto/bare-prom-client) instance.
 
 `params` must include:
 
@@ -95,7 +95,7 @@ Optionally, `params` can also include:
 
 #### `instrumentation.promClient`
 
-The [Prom Client](https://github.com/siimon/prom-client) instance.
+The [Prom Client](https://github.com/holepunchto/bare-prom-client) instance.
 
 #### `instrumentation.dhtPromClient`
 
