@@ -10,7 +10,7 @@ Supports the metrics of
 - [hyperswarm-stats](https://github.com/holepunchto/hyperswarm-stats)
 - [hyperdht-stats](https://github.com/holepunchto/hyperdht-stats)
 
-The service registers itself with a [DHT Prometheus](https://gitlab.com/dcent-tech/dht-prometheus) instance, which scrapes the metrics at regular intervals.
+The service registers itself with a [HyperDHT Prometheus Bridge](https://github.com/holepunchto/hyperdht-prometheus-bridge) instance, which scrapes the metrics at regular intervals.
 
 A [Grafana dashboard](https://grafana.com/grafana/dashboards/22313-hypercore-hyperswarm/) visualising all metrics is available ([source](https://github.com/holepunchto/Grafana-hypercore-stats)).
 
@@ -68,14 +68,14 @@ await instrumentation.ready()
 
 #### `const instrumentation = new HyperInstrument(params)`
 
-Set up instrumentation by registering the default metrics and creating a [DHT-Prom client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
+Set up instrumentation by registering the default metrics and creating a [DhtPromClient](https://github.com/holepunchto/hyperdht-prometheus-client) instance.
 
 It is possible to add additional metrics by adding them to `instrumentation.promClient`, which is a [Prom-client](https://github.com/siimon/prom-client) instance.
 
 `params` must include:
 
-- `scraperPublicKey`: public key of the DHT-Prometheus scraper (hex, z32 or buffer)
-- `scraperSecret`: secret of the DHT-Prometheus scraper (hex, z32 or buffer)
+- `scraperPublicKey`: public key of the HyperDHT-Prometheus scraper (hex, z32 or buffer)
+- `scraperSecret`: secret of the HyperDHT-Prometheus scraper (hex, z32 or buffer)
 - `prometheusAlias`: string uniquely identifying this instance to the scraper
 - `prometheusServiceName`: string containing the name of the service
 
@@ -99,7 +99,7 @@ The [Prom Client](https://github.com/siimon/prom-client) instance.
 
 #### `instrumentation.dhtPromClient`
 
-The [DHT Prom Client](https://gitlab.com/dcent-tech/dht-prom-client) instance.
+The [HyperDHT Prometheus Client](https://github.com/holepunchto/hyperdht-prometheus-client) instance.
 
 #### `await instrumentation.ready()`
 
