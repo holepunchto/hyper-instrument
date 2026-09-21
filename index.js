@@ -2,8 +2,8 @@ const process = require('process')
 const HyperswarmStats = require('hyperswarm-stats')
 const HypercoreStats = require('hypercore-stats')
 const HyperDhtStats = require('hyperdht-stats')
+const DhtPromClient = require('hyperdht-prometheus-client')
 const ReadyResource = require('ready-resource')
-const DhtPromClient = require('dht-prom-client')
 const promClient = require('bare-prom-client')
 
 class HyperInstrumentation extends ReadyResource {
