@@ -33,7 +33,9 @@ class HyperInstrumentation extends ReadyResource {
         'hyperbee',
         'autobase',
         'hyperdb',
-        'autobee'
+        'autobee',
+        'hypercore-storage',
+        'rocksdb-native'
       ]
     }
 
