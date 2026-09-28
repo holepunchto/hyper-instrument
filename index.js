@@ -32,7 +32,8 @@ class HyperInstrumentation extends ReadyResource {
         'corestore',
         'hyperbee',
         'autobase',
-        'hyperdb'
+        'hyperdb',
+        'autobee'
       ]
     }
 
