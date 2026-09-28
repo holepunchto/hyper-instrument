@@ -34,6 +34,7 @@
     "corestore": "^7.0.0",
     "hyperbee": "^2.21.2",
     "hypercore": "^11.0.0",
+    "hyperdb": "^6.9.0",
     "hyperswarm": "^4.8.4",
     "prettier": "^3.6.2",
     "prettier-config-holepunch": "^2.0.0",
