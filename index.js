@@ -114,7 +114,7 @@ function registerModuleVersions(names) {
     const normName = name.replace('@', '').replaceAll('/', '_').replaceAll('-', '_')
 
     try {
-      const v = require(`${name}/package`).version
+      const v = require(`${name}/package.json`).version
       new promClient.Gauge({
         // eslint-disable-line no-new
         name: `${normName}_version`,
