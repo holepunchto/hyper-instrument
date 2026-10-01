@@ -111,21 +111,30 @@ function registerPackageVersion(version) {
 
 function registerModuleVersions(names) {
   for (const name of names) {
-    const normName = name.replace('@', '').replaceAll('/', '_').replaceAll('-', '_')
+    const v = getModuleVersion(name)
+    if (!v) continue // dependency not found or version can't be extracted
 
-    try {
-      const v = require(`${name}/package`).version
-      new promClient.Gauge({
-        // eslint-disable-line no-new
-        name: `${normName}_version`,
-        help: `${name} version`,
-        labelNames: [`${normName}_version`],
-        collect() {
-          this.labels(v).set(1)
-        }
-      })
-    } catch {} // dependency not found or version can't be extracted
+    const normName = name.replace('@', '').replaceAll('/', '_').replaceAll('-', '_')
+    new promClient.Gauge({
+      name: `${normName}_version`,
+      help: `${name} version`,
+      labelNames: [`${normName}_version`],
+      collect() {
+        this.labels(v).set(1)
+      }
+    })
   }
+}
+
+function getModuleVersion(name) {
+  try {
+    return require(`${name}/package`).version
+  } catch {}
+  try {
+    return require(`${name}/package.json`).version
+  } catch {}
+
+  return null
 }
 
 function registerProcessId() {
